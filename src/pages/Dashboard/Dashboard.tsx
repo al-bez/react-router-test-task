@@ -1,13 +1,18 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { List, Spinner } from '../../components';
+import { PokemonContext } from '../../utils';
 
 const Dashboard = () => {
-  return (
+  const { userList, loading, favoritesCount, toggleFavourite } =
+    useContext(PokemonContext);
+
+  return loading ? (
+    <Spinner />
+  ) : (
     <>
-      <Typography color="primary" variant="h4">
-        This is Dashboard page
-      </Typography>
-      <Link to="/secondary">Secondary</Link>
+      <Link to="/favourite"> {favoritesCount} favourite pokemons</Link>
+      <List items={userList} action={toggleFavourite} />
     </>
   );
 };
